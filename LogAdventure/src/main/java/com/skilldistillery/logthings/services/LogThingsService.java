@@ -10,6 +10,6 @@ public interface LogThingsService {
 	Log getLog(int logId);
 	Log create(Log newLog);
 	Log update(int logId);
-	Log delete(int logId);
+	boolean delete(int logId);
 
 }

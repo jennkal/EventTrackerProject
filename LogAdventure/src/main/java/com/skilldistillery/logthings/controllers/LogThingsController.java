@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +34,15 @@ public class LogThingsController {
 			res.setStatus(404);
 		}
 		return log;
+	}
+	
+	@PostMapping("logs")
+	public Log create(@RequestBody Log log, HttpServletResponse res) {
+		Log created = logService.create(log);
+		if (created != null) {
+			res.setStatus(201);
+		}
+		return created;
 	}
 
 }

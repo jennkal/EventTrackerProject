@@ -32,8 +32,7 @@ public class LogThingsServiceImpl implements LogThingsService {
 
 	@Override
 	public Log create(Log newLog) {
-		// TODO Auto-generated method stub
-		return null;
+		return logRepo.saveAndFlush(newLog);
 	}
 
 	@Override
@@ -43,9 +42,9 @@ public class LogThingsServiceImpl implements LogThingsService {
 	}
 
 	@Override
-	public Log delete(int logId) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean delete(int logId) {
+		logRepo.deleteById(logId);
+		return !logRepo.existsById(logId);
 	}
 
 }
