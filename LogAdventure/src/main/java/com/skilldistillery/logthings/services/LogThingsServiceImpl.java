@@ -36,8 +36,12 @@ public class LogThingsServiceImpl implements LogThingsService {
 	}
 
 	@Override
-	public Log update(int logId) {
-		// TODO Auto-generated method stub
+	public Log update(Log log, int logId) {
+		Optional<Log> logOpt = logRepo.findById(logId);
+		if(logOpt.isPresent()) {
+			//log.setTrip(logOpt.get());
+			return logRepo.saveAndFlush(log);
+		}
 		return null;
 	}
 
