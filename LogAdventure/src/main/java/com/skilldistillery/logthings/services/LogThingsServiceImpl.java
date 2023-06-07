@@ -21,7 +21,7 @@ public class LogThingsServiceImpl implements LogThingsService {
 	}
 
 	@Override
-	public Log getLog(int logId) {
+	public Log getLog(int logId) { 
 		Log log = null;
 		Optional<Log> logOpt = logRepo.findById(logId);
 		if (logOpt.isPresent()) {

@@ -5,9 +5,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +45,20 @@ public class LogThingsController {
 			res.setStatus(201);
 		}
 		return created;
+	}
+	
+	@PutMapping("logs/{id}")
+	public Log update(@RequestBody Log log, @PathVariable int id, HttpServletResponse res) {
+		Log updated = logService.update(log, id);
+		return updated;
+	}
+	
+	@DeleteMapping("logs/{id}")
+	public void delete(@PathVariable int id, HttpServletResponse res) {
+		boolean deleted = logService.delete(id);
+		if (deleted) {
+			res.setStatus(204);
+		}
 	}
 
 }
