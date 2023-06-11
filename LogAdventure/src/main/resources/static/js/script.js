@@ -80,8 +80,8 @@ function displayAllLogs(logList) {
 			let duration = row.insertCell(3);
 			duration.innerHTML = log.duration;
 			
-			let activity = row.insertCell(4);
-			activity.innerHTML = log.activity;
+//			let activity = row.insertCell(4);
+//			activity.innerHTML = log.activity;
 					
 		})
 }
@@ -102,7 +102,7 @@ function getLogDetails(logId) {
 	console.log('Getting Log details for log ID ' + logId)
 	
 	let xhr = new XMLHttpRequest();
-	xhr.open('GET', `api/activities/${logId}`);
+	xhr.open('GET', `api/logs/${logId}`);
 	
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState === 4) {
@@ -127,9 +127,9 @@ function displayLogDetails(log) {
 	let detailDiv = document.getElementById("logDetailsDiv");
 	detailDiv.textContent = '';
 	
-	let h2 = document.createElement('h2');
-	h2.textContent = log.name;
-	detailDiv.appendChild(h2);
+	let activityEdit = document.createElement('input');
+	activityEdit.value = log.activity;
+	detailDiv.appendChild(activityEdit);
 	
 	let deleteLogDiv = document.createElement('deleteLogDiv');
 	deleteLogDiv.name = 'deleteLogForm';
@@ -151,16 +151,34 @@ function displayLogDetails(log) {
 	delButton.addEventListener('click', function(event) {
 		event.preventDefault();
 		//console.log(document.delete)
-		let logId = document.deleteLog.logId.value;
-		console.log('Delete Log ' + logId);
-		deleteLog(logId);
+		//let logId = document.deletelogdiv.logId.value;
+		console.log('Delete Log ' + log.id);
+		deleteLog(log.id);
 	});
 	
-	let updateLogDiv = document.getElementById('updateLogDiv');
+		let updateLogDiv = document.getElementById('updateLogDiv');
 	let updateForm = document.createElement('form');
 	
+	
+		let updateButton = document.createElement('button');
+	updateButton.textContent = 'Update this Log';
+	updateLogDiv.appendChild(updateButton);
+	
+	updateButton.classList.add('btn');
+	updateButton.classList.add('btn-danger');
+	
+	updateButton.addEventListener('click', function(event) {
+		event.preventDefault();
+		//console.log(document.delete)
+		//let logId = document.deletelogdiv.logId.value;
+		log.activity = document.getEle
+		console.log('Update Log ' + log);
+		updateLog(log);
+	});
+	
+
 	updateForm.name = 'updateLogForm';
-	logDetails.appendChild(updateForm);
+//	let logDetails.appendChild(updateForm);
 	
 	logIdInput = document.createElement('input');
 	logIdInput.type = 'hidden';
@@ -219,6 +237,27 @@ function deleteLog(logId) {
 		}
 	};
 	xhr.send();
+}
+
+function updateLog(updatedLog) {
+	let xhr = new XMLHttpRequest();
+	
+	xhr.open('PUT', "api/logs/" + updatedLog.id);
+	
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState === 4) {
+			if (xhr.status === 204) {
+				console.log("Log Updated. " + xhr.responseText);
+				getAllLogs();
+			}
+			else {
+				console.error("Error: " + xhr.status);
+			}
+		}
+	};
+	xhr.setRequestHeader("Content-type", "application/json");
+	let updatedLogJson = JSON.stringify(updatedLog);
+	xhr.send(updatedLogJson);
 }
 
 function createNewLog(newLog) {
