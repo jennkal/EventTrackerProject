@@ -6,6 +6,10 @@
 
 <!-- start entities -->
 	<class>com.skilldistillery.logthings.entities.Log</class>
+	
+	<class>com.skilldistillery.logthings.entities.ActivityLog</class>
+	
+	<class>com.skilldistillery.logthings.entities.MaintenanceLog</class>
 
 <!-- end entities  -->
 

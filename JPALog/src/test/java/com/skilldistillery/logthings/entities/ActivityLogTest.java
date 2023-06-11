@@ -1,6 +1,7 @@
 package com.skilldistillery.logthings.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,11 +13,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class LogTest {
+class ActivityLogTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Log log;
+	private ActivityLog activity;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,18 +32,18 @@ class LogTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		log = em.find(Log.class, 1);
+		activity = em.find(ActivityLog.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		log = null;
+		activity = null;
 	}
 
 	@Test
-	void test_Log_mapping() {
-		assertNotNull(log);
-		assertEquals("land", log.getCategory());
+	void test_Activity_mapping() {
+		assertNotNull(activity);
+		assertEquals("Ptarmigan Tunnel", activity.getName());
 	}
 }

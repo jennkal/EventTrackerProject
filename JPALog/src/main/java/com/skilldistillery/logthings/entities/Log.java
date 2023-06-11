@@ -6,15 +6,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="adventure_log")
 public class Log {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private String trip;
+	private String category;
+	
+	private String details;
+	
+	private int duration;
+	
+	private String activity;
 	
 
 	public Log() {
@@ -29,17 +37,45 @@ public class Log {
 		this.id = id;
 	}
 
-	public String getTrip() {
-		return trip;
+
+	public String getCategory() {
+		return category;
 	}
 
-	public void setTrip(String trip) {
-		this.trip = trip;
+	public void setCategory(String category) {
+		this.category = category;
 	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public String getActivity() {
+		return activity;
+	}
+
+	public void setActivity(String activity) {
+		this.activity = activity;
+	}
+	
+	
 
 	@Override
 	public String toString() {
-		return "Log [id=" + id + ", trip=" + trip + "]";
+		return "Log [id=" + id + ", category=" + category + ", details=" + details + ", duration=" + duration
+				+ ", activity=" + activity + "]";
 	}
 
 	@Override

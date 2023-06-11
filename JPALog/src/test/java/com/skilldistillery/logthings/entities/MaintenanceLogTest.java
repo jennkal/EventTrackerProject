@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class LogTest {
-	
+class MaintenanceLogTest {
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Log log;
+	private MaintenanceLog mainLog;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,18 +31,18 @@ class LogTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		log = em.find(Log.class, 1);
+		mainLog = em.find(MaintenanceLog.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		log = null;
+		mainLog = null;
 	}
 
 	@Test
-	void test_Log_mapping() {
-		assertNotNull(log);
-		assertEquals("land", log.getCategory());
+	void test_Activity_mapping() {
+		assertNotNull(mainLog);
+		assertEquals("Truck and generator maintenance.", mainLog.getDescription());
 	}
 }
