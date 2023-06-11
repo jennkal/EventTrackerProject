@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Going On An Adventure</title>
 
 <script src="js/script.js" type="text/javascript"></script>
-<!-- BOOTSTRAP, add CSS stylesheet  -->
+
 </head>
 <body>
+
+
 
 <main class="container-fluid">
 
@@ -15,7 +17,7 @@
 
 <div id="LogListDiv">
 <!-- List of logs in table -->
-<table>
+<table id="logTable">
 	<thead>
 		<tr>
 		<th>Id</th>
@@ -25,21 +27,38 @@
 		<th>Activity</th>
 		</tr>
 	</thead>
-	<tbody id="logTable">
+	<tbody id="logTableBody">
 		<tr>
 		</tr>
 	</tbody>
 </table>
 </div>
 
-<div id="LogDetailsDiv"></div>
+<form name="newLogForm">
+	<label for="details">Details</label>
+	<input name="details" type="text"><br>
+	
+	<label for="category">Category</label>
+	<input name="category" type="text"><br>
+	
+	<label for="activity">Activity</label>
+	<input name="activity" type="text"><br>
+	
+	<label for="duration">Duration</label>
+	<input name="duration" type="text"><br>
+	
+	<button name="addNewLog">Add Log</button>
+</form>
+
+<div value="submit" id="logDetailsDiv"></div>
 
 <div id="newLogDiv"></div>
 
 <div id="updateLogDiv"></div>
 
-<div id="deleteLogDiv"></div>
+<div value="submit" id="deleteLogDiv"></div>
 
 </main>
+
 </body>
 </html>

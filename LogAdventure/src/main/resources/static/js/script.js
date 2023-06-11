@@ -10,6 +10,25 @@ function init() {
 	//load all events
 	// add event listeners for existing buttons / forms etc
 	getAllLogs();
+	
+	document.newLogForm.addNewLog.addEventListener('click', function(e) {
+		e.preventDefault();
+		let form = document.newLogForm 
+		let log = {
+			details: form.details.value,
+			duration: form.duration.value,
+			category: form.category.value,
+			activity: form.activity.value	
+		};
+		
+		console.log(log);
+		createNewLog(log);
+		
+		
+	})
+	
+	
+	//deleteLog();
 }
 
 function getAllLogs() {
@@ -37,7 +56,7 @@ function getAllLogs() {
 
 function displayAllLogs(logList) {
 	//iterate, add rows to table
-	let tbody = document.getElementById('logTable');
+	let tbody = document.getElementById('logTableBody');
 	tbody.textContent = '';
 	
 	console.log('in displayAllLogs');
@@ -63,7 +82,19 @@ function displayAllLogs(logList) {
 			
 			let activity = row.insertCell(4);
 			activity.innerHTML = log.activity;
+					
 		})
+}
+	let table = document.getElementById('logTable');
+	let rows = table.getElementsByTagName("tr");
+	for (i = 0; i < rows.length; i++) {
+		let row = table.rows[i];
+		row.addEventListener('click', function(e) {
+			console.log(row.cells[0].innerHTML);
+			getLogDetails(row.cells[0].innerHTML);
+		})
+	}
+	
 }
 
 function getLogDetails(logId) {
@@ -71,12 +102,12 @@ function getLogDetails(logId) {
 	console.log('Getting Log details for log ID ' + logId)
 	
 	let xhr = new XMLHttpRequest();
-	xhr.open('GET', `api/logs/${logId}`);
+	xhr.open('GET', `api/activities/${logId}`);
 	
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState === 4) {
 			if(xhr.status === 200) {
-				let stand = JSON.parse(xhr.responseText);
+				let log = JSON.parse(xhr.responseText);
 				displayLogDetails(log);
 			}
 			else {
@@ -190,5 +221,30 @@ function deleteLog(logId) {
 	xhr.send();
 }
 
-
+function createNewLog(newLog) {
+	let xhr = new XMLHttpRequest();
+	
+	xhr.open('POST', 'api/logs');
+	xhr.onreadystatechange = function() {
+		
+		if(xhr.readyState === 4) {
+			
+			if(xhr.status === 201) {
+				//let createdLog = JSON.parse(xhr.responseText);
+				getAllLogs();
+				//actors? not in instructions
+			}
+			else {
+				//POST failed
+				displayError('oh hamburglars its broke.')
+			}
+		}
+	};
+	
+	xhr.setRequestHeader("Content-type", "application/json");
+	let newLogJson = JSON.stringify(newLog);
+	xhr.send(newLogJson);
 }
+
+
+
