@@ -20,14 +20,9 @@ function init() {
 			category: form.category.value,
 			activity: form.activity.value	
 		};
-		
 		console.log(log);
 		createNewLog(log);
-		
-		
 	})
-	
-	
 	//deleteLog();
 }
 
@@ -42,18 +37,17 @@ function getAllLogs() {
 				let logList = JSON.parse(xhr.responseText)
 				console.log(logList)
 				displayAllLogs(logList)
-
 				//	displayAllLogs(JSON.parse(xhr.responseText));
 			}
 			else {
-
+				console.error("Error: " + xhr.status);
 			}
 		}
 	};
-
 	xhr.send();
 }
 
+//display all logs in a table on the page
 function displayAllLogs(logList) {
 	//iterate, add rows to table
 	let tbody = document.getElementById('logTableBody');
@@ -81,8 +75,7 @@ function displayAllLogs(logList) {
 			duration.innerHTML = log.duration;
 			
 //			let activity = row.insertCell(4);
-//			activity.innerHTML = log.activity;
-					
+//			activity.innerHTML = log.activity;				
 		})
 }
 	let table = document.getElementById('logTable');
@@ -94,7 +87,6 @@ function displayAllLogs(logList) {
 			getLogDetails(row.cells[0].innerHTML);
 		})
 	}
-	
 }
 
 function getLogDetails(logId) {
@@ -112,11 +104,11 @@ function getLogDetails(logId) {
 			}
 			else {
 				//show "Not Found"
+				console.error("Error: " + xhr.status);
 			}
 		}
 	};
 	xhr.send();
-
 }
 
 function displayLogDetails(log) {
@@ -127,20 +119,25 @@ function displayLogDetails(log) {
 	let detailDiv = document.getElementById("logDetailsDiv");
 	detailDiv.textContent = '';
 	
+	//edit / Update
 	let activityEdit = document.createElement('input');
 	activityEdit.value = log.activity;
+	activityEdit.classList.add('updated')
 	detailDiv.appendChild(activityEdit);
 	
+	// DELETE
 	let deleteLogDiv = document.createElement('deleteLogDiv');
 	deleteLogDiv.name = 'deleteLogForm';
 	detailDiv.appendChild(deleteLogDiv);
 	
+	// Append to DELETE
 	let logIdInput = document.createElement('input');
 	logIdInput.type = 'hidden';
 	logIdInput.name = 'logId';
 	logIdInput.value = log.id;
 	deleteLogDiv.appendChild(logIdInput);
 	
+	// Make a DELETE BUTTON
 	let delButton = document.createElement('button');
 	delButton.textContent = 'Delete this Log';
 	deleteLogDiv.appendChild(delButton);
@@ -148,6 +145,7 @@ function displayLogDetails(log) {
 	delButton.classList.add('btn');
 	delButton.classList.add('btn-danger');
 	
+	//add event listener to DELETE BUTTON
 	delButton.addEventListener('click', function(event) {
 		event.preventDefault();
 		//console.log(document.delete)
@@ -156,27 +154,31 @@ function displayLogDetails(log) {
 		deleteLog(log.id);
 	});
 	
-		let updateLogDiv = document.getElementById('updateLogDiv');
+	//UPDATE / EDIT LOG
+	let updateLogDiv = document.getElementById('updateLogDiv');
 	let updateForm = document.createElement('form');
 	
-	
-		let updateButton = document.createElement('button');
+	//ADD UPDATE BUTTON
+	let updateButton = document.createElement('button');
 	updateButton.textContent = 'Update this Log';
 	updateLogDiv.appendChild(updateButton);
 	
 	updateButton.classList.add('btn');
 	updateButton.classList.add('btn-danger');
 	
+	// ADD EVENT LISTENER TO UPDATE BUTTON
 	updateButton.addEventListener('click', function(event) {
 		event.preventDefault();
 		//console.log(document.delete)
 		//let logId = document.deletelogdiv.logId.value;
-		log.activity = document.getEle
-		console.log('Update Log ' + log);
+		
+		let updatedActivity = activityEdit.value
+		console.log(updatedActivity)
+		log.activity = updatedActivity
+		console.log('Uptate log ' + log);
 		updateLog(log);
-	});
-	
-
+	})
+		
 	updateForm.name = 'updateLogForm';
 //	let logDetails.appendChild(updateForm);
 	
@@ -201,7 +203,7 @@ function displayLogDetails(log) {
 		console.log('updated log ' + logId);
 	});
 	
-	let h3 = document.createElement('h3');
+/*	let h3 = document.createElement('h3');
 	h3.textContent = "Category: " + log.category;
 	logDetails.appendChild(h3);
 	
@@ -216,7 +218,7 @@ function displayLogDetails(log) {
 	let picture = document.createElement('img');
 	picture.src = log.imgUrl;
 	picture.classList.add('detailImage');
-	logDetails.appendChild(picture);
+	logDetails.appendChild(picture);*/
 
 }
 
@@ -246,7 +248,7 @@ function updateLog(updatedLog) {
 	
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState === 4) {
-			if (xhr.status === 204) {
+			if (xhr.status === 200) {
 				console.log("Log Updated. " + xhr.responseText);
 				getAllLogs();
 			}
