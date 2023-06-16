@@ -1,0 +1,27 @@
+<h1>Log Adventure Home</h1>
+
+<div id="logListDiv">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Category</th>
+        <th>Details</th>
+        <th>Duration</th>
+        <th>Activity</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let log of logList">
+        <td>{{log.id}}</td>
+        <td>{{log.category}}</td>
+        <td>{{log.details}}</td>
+        <td>{{log.duration}}</td>
+        <td>{{log.activity}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
