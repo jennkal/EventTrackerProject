@@ -1,27 +1,85 @@
 <h1>Log Adventure Home</h1>
 
-<div id="logListDiv">
+<div id="logListDiv" *ngIf="! selected">
   <table>
     <thead>
       <tr>
         <th>ID</th>
         <th>Category</th>
-        <th>Details</th>
-        <th>Duration</th>
-        <th>Activity</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let log of logList">
+      <tr *ngFor="let log of logList" (click)="selected = log">
         <td>{{log.id}}</td>
         <td>{{log.category}}</td>
-        <td>{{log.details}}</td>
-        <td>{{log.duration}}</td>
-        <td>{{log.activity}}</td>
       </tr>
     </tbody>
   </table>
+
+  <form name="newLog"
+  *ngIf="newLog">
+
+  <div class="row">
+      <input class="col form-control"
+      type="text"
+      name="log"
+      [(ngModel)]="newLog.details" />
+
+      <button class="col-auto btn btn-success"
+      (click)="addLog(newLog)">Add Log</button>
+    </div>
+  </form>
 </div>
 
+<div id="logDetailDiv"
+*ngIf="selected && ! editLog"
+class="container">
+
+<h4>ID: {{selected.id}}</h4>
+  <p>{{selected.category}}</p>
+  <div>
+
+    <h5>Details:</h5>
+    {{selected.details}}
+
+  </div>
+
+  <button class="btn btn-outline-info"
+  (click)="displayTable()">Back</button>
+
+  <button class="btn btn-outline-primary"
+  (click)="setEditLog()">Edit</button>
+</div>
+
+<div id="logEdit"
+*ngIf="editLog"
+class="container">
+
+<form>
+    <div class="row">
+      <label class="col-auto form-label"
+      for="log">Log</label>
+      <input
+      class="col form-control"
+      type="text"
+      name="editLog"
+      [(ngModel)]="editLog.category" />
+      <br />
+
+    </div>
+    <div class="row">
+      <label class="col-auto form-label" for="details">Details</label>
+      <input class="col form-control" type="text" name="details" [(ngModel)]="editLog.details" />
+    </div>
+
+    <div class="row">
+      <button class="btn btn-info col-auto"
+      (click)="editLog = null">Cancel</button>
+
+      <button class="btn btn-primary col-auto"
+      (click)="updateLog(editLog)">Save</button>
+    </div>
+  </form>
+</div>
 

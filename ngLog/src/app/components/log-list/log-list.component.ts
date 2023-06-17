@@ -11,7 +11,7 @@ import { Log } from 'src/app/models/log';
 export class LogListComponent implements OnInit {
 
   title: string = "log List";
-  logs: Log[] = [];
+  logList: Log[] = [];
   selected: Log | null = null;
   newLog: Log = new Log();
   editLog: Log | null = null;
@@ -53,7 +53,7 @@ export class LogListComponent implements OnInit {
   reload() {
     this.logService.index().subscribe({
       next: (logList) => {
-        this.logs = logList;
+        this.logList = logList;
       },
       error: (someError) => {
         console.error("LogListComponent.reload(): error getting log list");
@@ -61,21 +61,6 @@ export class LogListComponent implements OnInit {
       },
     });
   }
-
-  // getIncompleteAnxietyLevel() {
-  //   let numIncompleteTodos = this.getLogCount();
-  //   if(numIncompleteTodos >= 10) {
-  //     return 'danger';
-  //   } else if(numIncompleteTodos >= 5)  {
-  //     return 'warning';
-  //   } else {
-  //     return 'good';
-  //   }
-  // }
-
-  // getLogCount(): number {
-  //   return this.incompletePipe.transform(this.todos, false).length;
-  // }
 
   displayLog(log: Log): void {
     this.selected = log;
