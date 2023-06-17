@@ -12,9 +12,10 @@ export class HomeComponent implements OnInit{
 
   title: string = "log List";
   logList: Log[] = [];
-  selected: Log | null = null;
+  //selected: Log | null = null;
   newLog: Log = new Log();
   editLog: Log | null = null;
+selected: Log | null = new Log();
 
   constructor(
     private logService: LogService,

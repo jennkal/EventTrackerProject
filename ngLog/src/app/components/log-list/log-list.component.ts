@@ -15,6 +15,7 @@ export class LogListComponent implements OnInit {
   selected: Log | null = null;
   newLog: Log = new Log();
   editLog: Log | null = null;
+  logToEdit: Log | null = null;
 
   constructor(
     private logService: LogService,

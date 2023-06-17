@@ -10,7 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LogListComponent } from './components/log-list/log-list.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { AccordianComponent } from './components/accordian/accordian.component';
+
 
 @NgModule({
   declarations: [
@@ -18,8 +18,7 @@ import { AccordianComponent } from './components/accordian/accordian.component';
     HomeComponent,
     LogListComponent,
     NotFoundComponent,
-    NavigationComponent,
-    AccordianComponent
+    NavigationComponent
   ],
   imports: [
     BrowserModule,

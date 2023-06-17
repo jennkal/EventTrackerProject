@@ -13,7 +13,7 @@ class="container">
     </thead>
 
     <tbody>
-      <tr *ngFor="let log of logList">
+      <tr *ngFor="let log of logList" >
         <td>{{log.id}}</td>
         <td>{{log.category}}</td>
         <td>{{log.details}}</td>
@@ -39,7 +39,7 @@ class="container">
 </div>
 
 <div id="logDetailDiv"
-*ngIf="selected && ! editLog"
+*ngIf="selected && !editLog"
 class="container">
 
 <h4>ID: {{selected.id}}</h4>
