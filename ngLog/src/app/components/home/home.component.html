@@ -10,9 +10,12 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let log of logList" (click)="selected = log">
+      <tr *ngFor="let log of logList" >
         <td>{{log.id}}</td>
         <td>{{log.category}}</td>
+        <td><span class="btn btn-danger" (click)="deleteLog(log.id)">Delete Log</span></td>
+
+        <td><span class="btn btn-outline-info" (click)="selected = log">Log Details</span></td>
       </tr>
     </tbody>
   </table>
