@@ -89,6 +89,18 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `logthingsdb`;
 INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (1, 'land', 'Glacier National Park', 28, 'Hike, bike, horse ride, whitewater rafting, and more');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (2, 'land', 'Homer, Alaska', 20, 'Hikes');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (3, 'land', 'Dinosaur National Monument, CO/UT', 14, 'Hike, swim, set out first trailCams');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (4, 'land', 'Yellowstone National Park', 14, 'Hikes');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (5, 'land', 'White Sands National Park, NM', 10, 'Hikes');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (6, 'land', 'Coronado National Forest, AZ', 14, 'Hikes, Dirt Biking');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (7, 'land', 'Kofa National Wildlife Refuge, AZ', 14, 'Hikes, Dirt Biking');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (8, 'land', 'Lava River Cave, AZ', 1, 'Cave Hikes');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (9, 'land', 'Kaibab National Forest, AZ', 14, 'Hikes');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (10, 'land', 'Grand Canyon, AZ', 5, 'Hikes');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (11, 'land', 'Jean/Roach Dry Lake Beds, NV', 7, 'Hikes, Dirt Biking, Target practice');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (12, 'land', 'Valley of Fire State Park', 14, 'Hikes, Visiting Vegas');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (13, 'land', 'Providence Canyon State Park, GA', 5, 'Hikes');
 
 COMMIT;
 

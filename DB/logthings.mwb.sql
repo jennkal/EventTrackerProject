@@ -16,100 +16,58 @@ CREATE SCHEMA IF NOT EXISTS `logthingsdb` DEFAULT CHARACTER SET utf8 ;
 USE `logthingsdb` ;
 
 -- -----------------------------------------------------
--- Table `land_log`
+-- Table `adventure_log`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `land_log` ;
+DROP TABLE IF EXISTS `adventure_log` ;
 
-CREATE TABLE IF NOT EXISTS `land_log` (
+CREATE TABLE IF NOT EXISTS `adventure_log` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `trip_by_land` VARCHAR(50) NULL,
-  `details` VARCHAR(100) NULL,
+  `category` VARCHAR(45) NULL,
+  `details` VARCHAR(250) NULL,
   `duration` INT NULL,
+  `activity` VARCHAR(100) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sea_log`
+-- Table `activity_log`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sea_log` ;
+DROP TABLE IF EXISTS `activity_log` ;
 
-CREATE TABLE IF NOT EXISTS `sea_log` (
+CREATE TABLE IF NOT EXISTS `activity_log` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `trip_by_sea` VARCHAR(100) NULL,
-  `details` VARCHAR(100) NULL,
-  `dinghy_adventures` VARCHAR(100) NULL,
-  `dates` DATETIME NULL,
-  PRIMARY KEY (`id`))
+  `adventure_log_id` INT NOT NULL,
+  `name` VARCHAR(100) NULL,
+  `distance` INT NULL,
+  `details` VARCHAR(200) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_activity_log_adventure_log2_idx` (`adventure_log_id` ASC),
+  CONSTRAINT `fk_activity_log_adventure_log2`
+    FOREIGN KEY (`adventure_log_id`)
+    REFERENCES `adventure_log` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `maintenace_log`
+-- Table `maintenance_log`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `maintenace_log` ;
+DROP TABLE IF EXISTS `maintenance_log` ;
 
-CREATE TABLE IF NOT EXISTS `maintenace_log` (
+CREATE TABLE IF NOT EXISTS `maintenance_log` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `sea_log_id` INT NOT NULL,
-  `log_id` INT NOT NULL,
+  `adventure_log_id` INT NOT NULL,
+  `description` VARCHAR(200) NULL,
   `maintenance_item` VARCHAR(100) NULL,
-  `description` VARCHAR(100) NULL,
-  `interval` VARCHAR(50) NULL,
-  `fixes` VARCHAR(100) NULL,
+  `interval` VARCHAR(100) NULL,
+  `fixes` VARCHAR(200) NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_maintenace_log_idx` (`log_id` ASC),
-  INDEX `fk_maintenace_sea_log1_idx` (`sea_log_id` ASC),
-  CONSTRAINT `fk_maintenace_log`
-    FOREIGN KEY (`log_id`)
-    REFERENCES `land_log` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_maintenace_sea_log1`
-    FOREIGN KEY (`sea_log_id`)
-    REFERENCES `sea_log` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `hike_adventure`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `hike_adventure` ;
-
-CREATE TABLE IF NOT EXISTS `hike_adventure` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `land_log_id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `miles` DECIMAL(2) NULL,
-  `details` VARCHAR(100) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_hike_adventure_land_log1_idx` (`land_log_id` ASC),
-  CONSTRAINT `fk_hike_adventure_land_log1`
-    FOREIGN KEY (`land_log_id`)
-    REFERENCES `land_log` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `dinghy_adventure`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dinghy_adventure` ;
-
-CREATE TABLE IF NOT EXISTS `dinghy_adventure` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `sea_log_id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `nautical_miles` DECIMAL(2) NULL,
-  `details` VARCHAR(100) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_dinghy_adventure_sea_log1_idx` (`sea_log_id` ASC),
-  CONSTRAINT `fk_dinghy_adventure_sea_log1`
-    FOREIGN KEY (`sea_log_id`)
-    REFERENCES `sea_log` (`id`)
+  INDEX `fk_maintenance_log_adventure_log1_idx` (`adventure_log_id` ASC),
+  CONSTRAINT `fk_maintenance_log_adventure_log1`
+    FOREIGN KEY (`adventure_log_id`)
+    REFERENCES `adventure_log` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -126,22 +84,39 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `land_log`
+-- Data for table `adventure_log`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `logthingsdb`;
-INSERT INTO `land_log` (`id`, `trip_by_land`, `details`, `duration`) VALUES (1, 'Glacier National Park', 'Boondocking', 28);
-INSERT INTO `land_log` (`id`, `trip_by_land`, `details`, `duration`) VALUES (2, 'Alaska', 'Homer, AK and Anchorage, AK', 20);
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (1, 'land', 'Glacier National Park', 28, 'Hike, bike, horse ride, whitewater rafting, and more');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (2, 'land', 'Homer, Alaska', 20, 'Hikes');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (3, 'land', 'Dinosaur National Monument, CO/UT', 14, 'Hike, swim, set out first trailCams');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (4, 'land', 'Yellowstone National Park', 14, 'Hikes');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (5, 'land', 'White Sands National Park, NM', 10, 'Hikes');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (6, 'land', 'Coronado National Forest, AZ', 14, 'Hikes, Dirt Biking');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (7, 'land', 'Kofa National Wildlife Refuge, AZ', 14, 'Hikes, Dirt Biking');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (8, 'land', 'Lava River Cave, AZ', 1, 'Cave Hikes');
+INSERT INTO `adventure_log` (`id`, `category`, `details`, `duration`, `activity`) VALUES (9, 'land', 'Kaibab National Forest, AZ', 14, 'Hikes');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `hike_adventure`
+-- Data for table `activity_log`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `logthingsdb`;
-INSERT INTO `hike_adventure` (`id`, `land_log_id`, `name`, `miles`, `details`) VALUES (1, 2, 'Thunderbird Falls', 1, '800 ft. elevation');
+INSERT INTO `activity_log` (`id`, `adventure_log_id`, `name`, `distance`, `details`) VALUES (1, 1, 'Ptarmigan Tunnel', 16, 'Ptarmigan Lake, Ptarmigan Falls, and Ptarmigan Tunnel.');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `maintenance_log`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `logthingsdb`;
+INSERT INTO `maintenance_log` (`id`, `adventure_log_id`, `description`, `maintenance_item`, `interval`, `fixes`) VALUES (1, 1, 'Truck and generator maintenance.', 'oil change, hitch lube, rig generator oil change, backup generator oil change', '28', 'n/a');
 
 COMMIT;
 
