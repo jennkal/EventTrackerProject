@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LogListComponent } from './components/log-list/log-list.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { MaintenanceComponent } from './components/maintenance/maintenance.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     HomeComponent,
     LogListComponent,
     NotFoundComponent,
-    NavigationComponent
+    NavigationComponent,
+    MaintenanceComponent
   ],
   imports: [
     BrowserModule,
