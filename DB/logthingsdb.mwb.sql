@@ -37,17 +37,10 @@ DROP TABLE IF EXISTS `activity_log` ;
 
 CREATE TABLE IF NOT EXISTS `activity_log` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `adventure_log_id` INT NOT NULL,
   `name` VARCHAR(100) NULL,
   `distance` INT NULL,
   `details` VARCHAR(200) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_activity_log_adventure_log2_idx` (`adventure_log_id` ASC),
-  CONSTRAINT `fk_activity_log_adventure_log2`
-    FOREIGN KEY (`adventure_log_id`)
-    REFERENCES `adventure_log` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -58,16 +51,150 @@ DROP TABLE IF EXISTS `maintenance_log` ;
 
 CREATE TABLE IF NOT EXISTS `maintenance_log` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `adventure_log_id` INT NOT NULL,
   `description` VARCHAR(200) NULL,
   `maintenance_item` VARCHAR(100) NULL,
   `interval` VARCHAR(100) NULL,
   `fixes` VARCHAR(200) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_maintenance_log_adventure_log1_idx` (`adventure_log_id` ASC),
-  CONSTRAINT `fk_maintenance_log_adventure_log1`
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `activity_log_has_adventure_log`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `activity_log_has_adventure_log` ;
+
+CREATE TABLE IF NOT EXISTS `activity_log_has_adventure_log` (
+  `activity_log_id` INT NOT NULL,
+  `adventure_log_id` INT NOT NULL,
+  PRIMARY KEY (`activity_log_id`, `adventure_log_id`),
+  INDEX `fk_activity_log_has_adventure_log_adventure_log1_idx` (`adventure_log_id` ASC),
+  INDEX `fk_activity_log_has_adventure_log_activity_log1_idx` (`activity_log_id` ASC),
+  CONSTRAINT `fk_activity_log_has_adventure_log_activity_log1`
+    FOREIGN KEY (`activity_log_id`)
+    REFERENCES `activity_log` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_activity_log_has_adventure_log_adventure_log1`
     FOREIGN KEY (`adventure_log_id`)
     REFERENCES `adventure_log` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `maintenance_log_has_adventure_log`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `maintenance_log_has_adventure_log` ;
+
+CREATE TABLE IF NOT EXISTS `maintenance_log_has_adventure_log` (
+  `maintenance_log_id` INT NOT NULL,
+  `adventure_log_id` INT NOT NULL,
+  PRIMARY KEY (`maintenance_log_id`, `adventure_log_id`),
+  INDEX `fk_maintenance_log_has_adventure_log_adventure_log1_idx` (`adventure_log_id` ASC),
+  INDEX `fk_maintenance_log_has_adventure_log_maintenance_log1_idx` (`maintenance_log_id` ASC),
+  CONSTRAINT `fk_maintenance_log_has_adventure_log_maintenance_log1`
+    FOREIGN KEY (`maintenance_log_id`)
+    REFERENCES `maintenance_log` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_maintenance_log_has_adventure_log_adventure_log1`
+    FOREIGN KEY (`adventure_log_id`)
+    REFERENCES `adventure_log` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user` ;
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NULL,
+  `password` VARCHAR(250) NULL,
+  `enabled` TINYINT NULL,
+  `role` VARCHAR(45) NULL,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
+  `image_url` VARCHAR(2000) NULL,
+  `description` TEXT NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user_has_activity_log`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_has_activity_log` ;
+
+CREATE TABLE IF NOT EXISTS `user_has_activity_log` (
+  `user_id` INT NOT NULL,
+  `activity_log_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `activity_log_id`),
+  INDEX `fk_user_has_activity_log_activity_log1_idx` (`activity_log_id` ASC),
+  INDEX `fk_user_has_activity_log_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_activity_log_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_activity_log_activity_log1`
+    FOREIGN KEY (`activity_log_id`)
+    REFERENCES `activity_log` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user_has_adventure_log`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_has_adventure_log` ;
+
+CREATE TABLE IF NOT EXISTS `user_has_adventure_log` (
+  `user_id` INT NOT NULL,
+  `adventure_log_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `adventure_log_id`),
+  INDEX `fk_user_has_adventure_log_adventure_log1_idx` (`adventure_log_id` ASC),
+  INDEX `fk_user_has_adventure_log_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_adventure_log_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_adventure_log_adventure_log1`
+    FOREIGN KEY (`adventure_log_id`)
+    REFERENCES `adventure_log` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user_has_maintenance_log`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_has_maintenance_log` ;
+
+CREATE TABLE IF NOT EXISTS `user_has_maintenance_log` (
+  `user_id` INT NOT NULL,
+  `maintenance_log_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `maintenance_log_id`),
+  INDEX `fk_user_has_maintenance_log_maintenance_log1_idx` (`maintenance_log_id` ASC),
+  INDEX `fk_user_has_maintenance_log_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_maintenance_log_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_maintenance_log_maintenance_log1`
+    FOREIGN KEY (`maintenance_log_id`)
+    REFERENCES `maintenance_log` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -110,7 +237,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `logthingsdb`;
-INSERT INTO `activity_log` (`id`, `adventure_log_id`, `name`, `distance`, `details`) VALUES (1, 1, 'Ptarmigan Tunnel', 16, 'Ptarmigan Lake, Ptarmigan Falls, and Ptarmigan Tunnel.');
+INSERT INTO `activity_log` (`id`, `name`, `distance`, `details`) VALUES (1, 'Ptarmigan Tunnel', 16, 'Ptarmigan Lake, Ptarmigan Falls, and Ptarmigan Tunnel.');
 
 COMMIT;
 
@@ -120,7 +247,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `logthingsdb`;
-INSERT INTO `maintenance_log` (`id`, `adventure_log_id`, `description`, `maintenance_item`, `interval`, `fixes`) VALUES (1, 1, 'Truck and generator maintenance.', 'oil change, hitch lube, rig generator oil change, backup generator oil change', '28', 'n/a');
+INSERT INTO `maintenance_log` (`id`, `description`, `maintenance_item`, `interval`, `fixes`) VALUES (1, 'Truck and generator maintenance.', 'oil change, hitch lube, rig generator oil change, backup generator oil change', '28', 'n/a');
 
 COMMIT;
 

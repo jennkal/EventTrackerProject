@@ -1,5 +1,7 @@
 package com.skilldistillery.logthings.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -7,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="activity_log")
@@ -27,6 +32,14 @@ public class ActivityLog {
 	private int distance;
 	
 	private String details;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "activityLogs")
+	private List<User> users;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "actLogs")
+	private List<Log> logs;
 
 	public ActivityLog() {
 		super();
@@ -70,6 +83,56 @@ public class ActivityLog {
 
 	public void setDetails(String details) {
 		this.details = details;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+	
+	public void addUser(User user) {
+		if (users == null) {
+			users = new ArrayList<>();
+		}
+		if (!users.contains(user)) {
+			users.add(user);
+			user.addActivityLog(this);
+		}
+	}
+
+	public void removeUser(User user) {
+		if (users != null && users.contains(user)) {
+			users.remove(user);
+			user.removeActivityLog(this);
+		}
+	}
+	
+	public void addLog(Log log) {
+		if (logs == null) {
+			logs = new ArrayList<>();
+		}
+		if (!logs.contains(log)) {
+			logs.add(log);
+			log.addActLog(this);
+		}
+	}
+
+	public void removeLog(Log log) {
+		if (logs != null && logs.contains(log)) {
+			logs.remove(log);
+			log.removeActLog(this);
+		}
+	}
+
+	public List<Log> getLogs() {
+		return logs;
+	}
+
+	public void setLogs(List<Log> logs) {
+		this.logs = logs;
 	}
 
 	@Override

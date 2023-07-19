@@ -1,5 +1,7 @@
 package com.skilldistillery.logthings.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,8 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="maintenance_log")
@@ -31,6 +36,14 @@ public class MaintenanceLog {
 	private String interval;
 	
 	private String fixes;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "maintenanceLogs")
+	private List<User> users;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "mainLogs")
+	private List<Log> logs;
 
 	public MaintenanceLog() {
 		super();
@@ -82,6 +95,56 @@ public class MaintenanceLog {
 
 	public void setFixes(String fixes) {
 		this.fixes = fixes;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+	
+	public void addUser(User user) {
+		if (users == null) {
+			users = new ArrayList<>();
+		}
+		if (!users.contains(user)) {
+			users.add(user);
+			user.addMaintenanceLog(this);
+		}
+	}
+
+	public void removeUser(User user) {
+		if (users != null && users.contains(user)) {
+			users.remove(user);
+			user.removeMaintenanceLog(this);
+		}
+	}
+
+	public void addLog(Log log) {
+		if (logs == null) {
+			logs = new ArrayList<>();
+		}
+		if (!logs.contains(log)) {
+			logs.add(log);
+			log.addMainLog(this);
+		}
+	}
+
+	public void removeLog(Log log) {
+		if (logs != null && logs.contains(log)) {
+			logs.remove(log);
+			log.removeMainLog(this);
+		}
+	}
+	
+	public List<Log> getLogs() {
+		return logs;
+	}
+
+	public void setLogs(List<Log> logs) {
+		this.logs = logs;
 	}
 
 	@Override
