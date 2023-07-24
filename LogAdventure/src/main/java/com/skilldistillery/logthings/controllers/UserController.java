@@ -66,11 +66,11 @@ public class UserController {
 		}
 	}
 
-	@PutMapping("users/{pid}/parks")
-	public User addParkToUserFavorites(HttpServletResponse res, Principal principal, @PathVariable int pid) {
+	@PutMapping("users/{lid}/logs")
+	public User addLogToUser(HttpServletResponse res, Principal principal, @PathVariable int lid) {
 			User loggedInUser = userService.findByUsername(principal.getName());
 		try {
-			loggedInUser = userService.addParkToUserFavorites(loggedInUser.getUsername(), pid);
+			loggedInUser = userService.addLogToUser(loggedInUser.getUsername(), lid);
 			if (loggedInUser == null) {
 				res.setStatus(404);
 				return loggedInUser;
@@ -84,11 +84,11 @@ public class UserController {
 
 	}
 	
-	@PutMapping("users/parks/{pid}")
-	public User removeParkFromUserFavorites(HttpServletResponse res, Principal principal, @PathVariable int pid) {
+	@PutMapping("users/logs/{lid}")
+	public User removeLogFromUser(HttpServletResponse res, Principal principal, @PathVariable int lid) {
 			User loggedInUser = userService.findByUsername(principal.getName());
 		try {
-			loggedInUser = userService.removeParkFromUserFavorites(loggedInUser.getUsername(), pid);
+			loggedInUser = userService.removeLogFromUser(loggedInUser.getUsername(), lid);
 			if (loggedInUser == null) {
 				res.setStatus(404);
 				return loggedInUser;

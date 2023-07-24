@@ -102,10 +102,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User removeLogFromUser(String username, int lid) {
 		User loggedInUser = userRepo.findByUsername(username);
-		Optional<Log> existingLog = logRepo.findById(lid);
+		Log existingLog = logRepo.findById(lid);
 		
 		if (existingLog != null) {
-			// TODO; finish this method
+			List<Log> favoriteLogs = loggedInUser.getAdventureLogs();
+			favoriteLogs.remove(existingLog);
+			loggedInUser.setAdventureLogs(favoriteLogs);
+			logRepo.saveAndFlush(existingLog);
 		}
 		return loggedInUser;
 

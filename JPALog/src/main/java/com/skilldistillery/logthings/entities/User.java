@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
 	
@@ -51,18 +53,21 @@ public class User {
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_has_adventure_log", 
 	joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "adventure_log_id"))
 	private List<Log> adventureLogs;
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_has_activity_log",
 	joinColumns = @JoinColumn(name = "user_id"),
 	inverseJoinColumns = @JoinColumn(name = "activity_log"))
 	private List<ActivityLog> activityLogs;
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_has_maintenance_log",
 	joinColumns = @JoinColumn(name ="user_id"),

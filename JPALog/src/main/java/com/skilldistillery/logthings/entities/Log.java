@@ -35,12 +35,14 @@ public class Log {
 	@ManyToMany(mappedBy = "adventureLogs")
 	private List<User> users;
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "adventure_log_has_activity_log",
 	joinColumns = @JoinColumn(name="adventure_log_id"),
 	inverseJoinColumns = @JoinColumn(name="activity_log_id"))
 	private List<ActivityLog> actLogs;
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name="adventure_log_has_maintenance_log",
 	joinColumns = @JoinColumn(name="adventure_log_id"),

@@ -23,7 +23,7 @@ public class LogThingsServiceImpl implements LogThingsService {
 	@Override
 	public Log getLog(int logId) { 
 		Log log = null;
-		Optional<Log> logOpt = logRepo.findById(logId);
+		Optional<Log> logOpt = Optional.ofNullable(logRepo.findById(logId));
 		if (logOpt.isPresent()) {
 			log = logOpt.get();
 		}
@@ -37,7 +37,7 @@ public class LogThingsServiceImpl implements LogThingsService {
 
 	@Override
 	public Log update(Log log, int logId) {
-		Optional<Log> logOpt = logRepo.findById(logId);
+		Optional<Log> logOpt = Optional.ofNullable(logRepo.findById(logId));
 		if(logOpt.isPresent()) {
 			//log.setTrip(logOpt.get());
 			return logRepo.saveAndFlush(log);
