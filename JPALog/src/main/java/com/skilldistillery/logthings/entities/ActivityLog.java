@@ -23,6 +23,7 @@ public class ActivityLog {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="adventure_log_id")
 	private Log log;
