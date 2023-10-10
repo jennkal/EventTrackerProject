@@ -38,9 +38,7 @@ public class MaintenanceLog {
 	
 	private String fixes;
 	
-	@JsonIgnore
-	@ManyToMany(mappedBy = "maintenanceLogs")
-	private List<User> users;
+	
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "mainLogs")
@@ -98,30 +96,7 @@ public class MaintenanceLog {
 		this.fixes = fixes;
 	}
 
-	public List<User> getUsers() {
-		return users;
-	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-	
-	public void addUser(User user) {
-		if (users == null) {
-			users = new ArrayList<>();
-		}
-		if (!users.contains(user)) {
-			users.add(user);
-			user.addMaintenanceLog(this);
-		}
-	}
-
-	public void removeUser(User user) {
-		if (users != null && users.contains(user)) {
-			users.remove(user);
-			user.removeMaintenanceLog(this);
-		}
-	}
 
 	public void addLog(Log log) {
 		if (logs == null) {

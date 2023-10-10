@@ -33,10 +33,7 @@ public class ActivityLog {
 	private int distance;
 	
 	private String details;
-	
-	@JsonIgnore
-	@ManyToMany(mappedBy = "activityLogs")
-	private List<User> users;
+
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "actLogs")
@@ -86,30 +83,7 @@ public class ActivityLog {
 		this.details = details;
 	}
 
-	public List<User> getUsers() {
-		return users;
-	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-	
-	public void addUser(User user) {
-		if (users == null) {
-			users = new ArrayList<>();
-		}
-		if (!users.contains(user)) {
-			users.add(user);
-			user.addActivityLog(this);
-		}
-	}
-
-	public void removeUser(User user) {
-		if (users != null && users.contains(user)) {
-			users.remove(user);
-			user.removeActivityLog(this);
-		}
-	}
 	
 	public void addLog(Log log) {
 		if (logs == null) {

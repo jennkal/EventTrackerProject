@@ -10,8 +10,6 @@
 	<class>com.skilldistillery.logthings.entities.ActivityLog</class>
 	
 	<class>com.skilldistillery.logthings.entities.MaintenanceLog</class>
-	
-	<class>com.skilldistillery.logthings.entities.User</class>
 
 <!-- end entities  -->
 

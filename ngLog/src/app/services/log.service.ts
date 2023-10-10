@@ -5,9 +5,11 @@ import { environment } from 'src/environments/environment';
 import { Log } from '../models/log';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' //this makes it possible to access throughout application
 })
 export class LogService {
+
+  private newLog: string[] = [];
 
   url: string = environment.baseUrl + 'api/logs';
 
@@ -55,6 +57,10 @@ export class LogService {
          );
        })
      )
+   }
+
+   getLogs() {
+    return this.newLog;
    }
 
      update(log: Log): Observable<Log> {

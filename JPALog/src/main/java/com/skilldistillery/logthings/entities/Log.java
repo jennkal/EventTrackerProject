@@ -31,9 +31,7 @@ public class Log {
 	
 	private String activity;
 	
-	@JsonIgnore
-	@ManyToMany(mappedBy = "adventureLogs")
-	private List<User> users;
+
 	
 	@JsonIgnore
 	@ManyToMany
@@ -94,13 +92,7 @@ public class Log {
 		this.activity = activity;
 	}
 	
-	public List<User> getUsers() {
-		return users;
-	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
 	
 	public List<ActivityLog> getActLogs() {
 		return actLogs;
@@ -118,22 +110,7 @@ public class Log {
 		this.mainLogs = mainLogs;
 	}
 	
-	public void addUser(User user) {
-		if (users == null) {
-			users = new ArrayList<>();
-		}
-		if (!users.contains(user)) {
-			users.add(user);
-			user.addLog(this);
-		}
-	}
 
-	public void removeUser(User user) {
-		if (users != null && users.contains(user)) {
-			users.remove(user);
-			user.removeLog(this);
-		}
-	}
 	
 	public void addActLog(ActivityLog activityLog) {
 		if (actLogs == null) {

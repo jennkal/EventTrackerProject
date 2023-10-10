@@ -11,6 +11,9 @@ const routes: Routes = [
   { path: 'log', component: LogListComponent},
   { path: 'log/:id', component: LogListComponent},
   { path: 'maintenancelog', component: MaintenanceComponent},
+  { path: 'maintenancelog/:id', component: MaintenanceComponent},
+
+  { path: '', component: HomeComponent },
 
   { path: '**', component: NotFoundComponent }
 ];

@@ -11,9 +11,10 @@ import { Log } from 'src/app/models/log';
 export class HomeComponent implements OnInit{
 
   title: string = "log List";
-  logList: Log[] = [];
+  logList: any[] = [];
   //selected: Log | null = null;
   newLog: Log = new Log();
+  addNewLog: string[];
   editLog: Log | null = null;
 selected: Log | null = new Log();
 
@@ -21,19 +22,21 @@ selected: Log | null = new Log();
     private logService: LogService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.addNewLog = this.logService.getLogs();
+  }
 
   ngOnInit(): void {
     this.loadLogs();
   }
 
-  loadLogs() {
+  loadLogs(): void {
     this.logService.index().subscribe({
       next: (logList) => {
         this.logList = logList;
       },
       error: (someError) => {
-        console.error('HomeComponent.');
+        console.error('HomeComponent.loadLogs(): error loading Logs');
         console.error(someError);
       }
      })
@@ -51,7 +54,7 @@ selected: Log | null = new Log();
     this.editLog = Object.assign({}, this.selected);
   }
 
-  addLog(log: Log) {
+  addLog(log: Log): void {
     // this.logService.create(log);
     this.logService.create(log).subscribe({
       next: (createdLog) => {

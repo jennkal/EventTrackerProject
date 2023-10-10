@@ -1,52 +1,47 @@
 <h1>Log Adventure Home</h1>
 
-<div>
-  <form>
+
+<div class="container-newLogDiv">
+  <form class="form-container">
+
     <!-- <div class="row">
       <label class="col" for="logId">Log #</label>
       <input class="col" type="number" name="logId" [(ngModel)]="newLog.id" />
     </div> -->
-    <div class="row">
-      <label class="col" for="category">Category</label>
+
+      <label class="form-label" for="category">Category</label>
       <input
-        class="col"
+        class="form-input"
         type="text"
         name="category"
         [(ngModel)]="newLog.category"
       />
-    </div>
-    <div class="row">
-      <label class="col" for="details">Details</label>
+
+      <label class="form-label" for="details">Details</label>
       <input
-        class="col"
+        class="form-input"
         type="text"
         name="details"
         [(ngModel)]="newLog.details"
       />
-    </div>
-    <div class="row">
-      <label class="col" for="duration">Duration</label>
+
+      <label class="form-label" for="duration">Duration</label>
       <input
-        class="col"
+        class="form-input"
         type="number"
         name="duration"
         [(ngModel)]="newLog.duration"
       />
-    </div>
-    <!-- <div class="row">
-      <label class="col" for="img">Image URL</label>
-      <input class="col" type="text" name="img" [(ngModel)]="newLog.img">
-    </div> -->
-    <div class="row">
-      <label class="col" for="activity">activity</label>
+
+      <label class="form-label" for="activity">Activity</label>
       <textarea
-        class="col"
+        class="form-input"
         name="actvity"
         rows="3"
         cols="40"
         [(ngModel)]="newLog.activity"
       ></textarea>
-    </div>
+
 
     <button class="btn btn-success" (click)="addLog(newLog)">
       Add New Log
@@ -54,7 +49,13 @@
   </form>
 </div>
 
-<div id="logListDiv" *ngIf="!selected">
+<h2>
+  <ul>
+    <li *ngFor="let log of logList" >{{ logList }}</li>
+  </ul>
+</h2>
+
+<!-- <div id="logListDiv" *ngIf="!selected">
   <table>
     <thead>
       <tr>
@@ -127,4 +128,4 @@
         </button>
       </div>
     </form>
-  </div>
+  </div> -->
