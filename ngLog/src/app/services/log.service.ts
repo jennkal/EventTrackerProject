@@ -9,7 +9,7 @@ import { Log } from '../models/log';
 })
 export class LogService {
 
-  private newLog: string[] = [];
+  private logs: Log[] = [];
 
   url: string = environment.baseUrl + 'api/logs';
 
@@ -44,10 +44,9 @@ export class LogService {
     );
   }
 
-  create(newLog: Log): Observable<Log> {
-    //generates new Id
-     newLog.details = '';
-     return this.http.post<Log>(this.url, newLog).pipe(
+  createLog(log: Log): Observable<Log> {
+
+     return this.http.post<Log>(this.url, log).pipe(
        catchError((err: any) => {
          console.error('Error fetching log list.');
          return throwError(
@@ -59,17 +58,11 @@ export class LogService {
      )
    }
 
-   getLogs() {
-    return this.newLog;
-   }
-
      update(log: Log): Observable<Log> {
-  //   if(log.completed) {
-  //     todo.completeDate = this.datePipe.transform(Date.now(), 'shortDate');
-  // } else {
-  //   todo.completeDate = '';
-  // }
-    return this.http.put<Log>(this.url + '/' + log.id, log).pipe(
+
+  const url = `${this.url}/${log.id}`;
+    return this.http.put<Log>(this.url, log).pipe(
+
       catchError((err: any) => {
         console.error('Error PUTING updated log.');
         return throwError(
@@ -84,7 +77,9 @@ export class LogService {
   destroy(logId: number): Observable<void> {
     // const deletePath = '${this.url}/${id}';
 
-     return this.http.delete<void>(`${this.url}/${logId}`).pipe(
+      const url = `${this.url}/${logId}`;
+     return this.http.delete<void>(url).pipe(
+
        catchError((err: any) => {
          console.log(err);
          return throwError(

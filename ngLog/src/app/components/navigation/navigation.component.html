@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
   <div class="container-fluid">
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
     aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation"
     (click)="isCollapsed = !isCollapsed"
@@ -7,7 +9,8 @@
 
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01"
+
+    <!-- <div class="collapse navbar-collapse" id="navbarTogglerDemo01"
     [ngbCollapse]='isCollapsed'>
 
       <a class="navbar-brand" [routerLink]="['/home']">Home</a>
@@ -21,35 +24,11 @@
           <a class="nav-link" [routerLink]="['/maintenancelog']">Maintenance Log</a>
         </li>
 
-      </ul>
+      </ul> -->
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
-  </div>
+  <!-- </div> -->
 </nav>
-
-<!--
-<div class="row-auto">
-  <nav class="navbar navbar-dark bg-dark">
-    <a [routerLink]="['/home']" class="navbar-link">
-      <button class="btn btn-success" type="button">Home</button></a
-    >
-    <a [routerLink]="['/parks']" class="nav-link">
-      <button class="btn btn-primary" type="button" (click)="clearSelectedPark()">Parks</button></a
-    >
-    <a [routerLink]="['/gallery']" class="nav-link">
-      <button class="btn btn-primary" type="button">Gallery</button></a
-    >
-    <a [routerLink]="['/register']" class="nav-link">
-      <button class="btn btn-info" type="button"*ngIf="!checkLoginStatus()">Register</button></a
-    >
-    <a [routerLink]="['/users']" class="nav-link">
-      <button (click)="clearSelectedUser()" class="btn btn-warning" type="button"*ngIf="checkLoginStatus()">User Page</button></a
-    >
-    <app-login *ngIf="!checkLoginStatus()" (loginSuccess)="handleLoginSuccess($event)">Login</app-login>
-
-    <app-logout *ngIf="checkLoginStatus()" [loggedInUser] = "loggedInUser"></app-logout>
-  </nav>
-  </div> -->

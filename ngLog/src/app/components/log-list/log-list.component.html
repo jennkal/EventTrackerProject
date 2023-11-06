@@ -1,4 +1,4 @@
-<div id="logListDiv"
+<!-- <div id="logListDiv"
 *ngIf="! selected"
 class="container">
   <table>
@@ -19,12 +19,18 @@ class="container">
         <td>{{log.details}}</td>
         <td>{{log.duration}}</td>
         <td>{{log.activity}}</td>
+        <td><button (click)="updateLog(log)">Edit</button></td>
+        <td><button (click)="deleteLog(log.id)">Delete</button></td>
       </tr>
     </tbody>
   </table>
 
-  <form name="newLog"
-  *ngIf="newLog">
+   <form name="newLog"
+  *ngIf="newLog"> -->
+
+  <!-- <input [(ngModel)]="newLog.id" />
+  <button (click)="addLog()">Add Log</button>
+
 
   <div class="row">
       <input class="col form-control"
@@ -33,10 +39,9 @@ class="container">
       [(ngModel)]="newLog.details" />
 
       <button class="col-auto btn btn-success"
-      (click)="addLog(newLog)">Add Log</button>
+      (click)="addLog()">Add Log</button>
     </div>
-  </form>
-</div>
+   </form>
 
 <div id="logDetailDiv"
 *ngIf="selected && !editLog"
@@ -87,4 +92,4 @@ class="container">
       (click)="updateLog(editLog)">Save</button>
     </div>
   </form>
-</div>
+</div> -->

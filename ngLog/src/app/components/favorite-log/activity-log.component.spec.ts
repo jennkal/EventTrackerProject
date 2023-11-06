@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FavoriteLogComponent } from './favorite-log.component';
+import { ActivityLogComponent } from './activity-log.component';
 
 describe('FavoriteLogComponent', () => {
-  let component: FavoriteLogComponent;
-  let fixture: ComponentFixture<FavoriteLogComponent>;
+  let component: ActivityLogComponent;
+  let fixture: ComponentFixture<ActivityLogComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FavoriteLogComponent]
+      declarations: [ActivityLogComponent]
     });
-    fixture = TestBed.createComponent(FavoriteLogComponent);
+    fixture = TestBed.createComponent(ActivityLogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

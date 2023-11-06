@@ -11,7 +11,7 @@ import { LogListComponent } from './components/log-list/log-list.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { MaintenanceComponent } from './components/maintenance/maintenance.component';
-import { FavoriteLogComponent } from './components/favorite-log/favorite-log.component';
+import { ActivityLogComponent } from './components/favorite-log/activity-log.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { FavoriteLogComponent } from './components/favorite-log/favorite-log.com
     NotFoundComponent,
     NavigationComponent,
     MaintenanceComponent,
-    FavoriteLogComponent
+    ActivityLogComponent
   ],
   imports: [
     BrowserModule,

@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit{
   logList: any[] = [];
   //selected: Log | null = null;
   newLog: Log = new Log();
-  addNewLog: string[];
+  //addNewLog: string[];
   editLog: Log | null = null;
 selected: Log | null = new Log();
 
@@ -23,7 +23,7 @@ selected: Log | null = new Log();
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.addNewLog = this.logService.getLogs();
+   // this.addNewLog = this.logService.getLogs();
   }
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ selected: Log | null = new Log();
 
   addLog(log: Log): void {
     // this.logService.create(log);
-    this.logService.create(log).subscribe({
+    this.logService.createLog(log).subscribe({
       next: (createdLog) => {
         this.newLog = new Log();
         this.loadLogs();

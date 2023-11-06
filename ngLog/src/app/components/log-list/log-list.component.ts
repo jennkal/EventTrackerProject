@@ -17,6 +17,8 @@ export class LogListComponent implements OnInit {
   editLog: Log | null = null;
   logToEdit: Log | null = null;
 
+  logs = this.logService.index();
+
   constructor(
     private logService: LogService,
     private route: ActivatedRoute,
@@ -75,9 +77,9 @@ export class LogListComponent implements OnInit {
     this.editLog = Object.assign({}, this.selected);
   }
 
-  addLog(log: Log) {
+  addLog() {
     // this.logService.create(log);
-    this.logService.create(log).subscribe({
+    this.logService.createLog(this.newLog).subscribe({
       next: (createdLog) => {
         this.newLog = new Log();
         this.reload();
@@ -105,7 +107,7 @@ export class LogListComponent implements OnInit {
     });
   }
 
-  deleteLog(logId: number) {
+  deleteLog(logId: number): void {
     this.logService.destroy(logId).subscribe({
       next: () => {
         this.reload();
